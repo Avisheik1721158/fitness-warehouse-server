@@ -61,7 +61,7 @@ async function run() {
             console.log('adding new user', newItem)
 
             // const result = await itemsCollection.insertOne(newItem);
-            res.send(result);
+            res.send({ result: 'success' });
 
 
         });
