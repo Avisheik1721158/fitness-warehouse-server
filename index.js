@@ -7,7 +7,7 @@ const port = process.env.PORT || 5000;
 // middleware
 app.use(cors());
 app.use(express.json());
-// env done
+
 
 
 
@@ -33,7 +33,7 @@ async function run() {
             res.send(item);
         });
 
-        // decrease quantity(update)
+        // decrease or increase quantity(update)
         app.put('/items/:id', async (req, res) => {
             const id = req.params.id;
             const updateQuantity = req.body;
@@ -47,6 +47,23 @@ async function run() {
             const result = await itemsCollection.updateOne(filter, updateDoc, options);
             res.send(result);
         });
+        // delete item from manage inventory
+        app.delete('/items/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await itemsCollection.deleteOne(query);
+            res.send(result);
+        });
+
+        // POST or ADD item
+        app.post('/items', async (req, res) => {
+            const newItem = req.body;
+            const result = await itemsCollection.insertOne(newItem);
+            res.send(result);
+
+
+        })
+
 
     }
     finally {
