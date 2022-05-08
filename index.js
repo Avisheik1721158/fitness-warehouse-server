@@ -56,10 +56,12 @@ async function run() {
         });
 
         // POST or ADD item
-        app.post('/items', async (req, res) => {
+        app.post('/items', (req, res) => {
             const newItem = req.body;
-            const result = await itemsCollection.insertOne(newItem);
-            res.send(result);
+            console.log('adding new user', newItem)
+
+            // const result = await itemsCollection.insertOne(newItem);
+            res.send({ result: 'success' });
 
 
         })
